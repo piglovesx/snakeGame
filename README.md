@@ -1,4 +1,4 @@
 snakeGame
 =========
 
-use what u have learn, just make a snake game together
+使用jquery来建立一个贪吃蛇的小游戏，暂定人员有张海露，朱雷
