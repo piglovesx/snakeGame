@@ -2,8 +2,69 @@
 <head>
 	<title>Sname Game</title>
 	<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+	<style type="text/css">
+	    .scope {
+	    	width: 599px;
+	    	height: 599px;
+	    	border: 1px solid blue;
+	    	margin: 0 auto;
+	    }
+	    .square {
+	    	/*display:block;*/
+	    	float: left;
+	    	/*clear: left*/;
+	    	border-bottom: 1px solid gray;
+	    	border-right: 1px solid gray;
+	    	width: 19px;
+	    	height: 19px;
+	    }
+	</style>
+	<script type="text/javascript">
+	    $(document).ready(function(){
+	    	var w = 30;//在水平方向，总共有50个方块
+	    	var v = 30;//in vertical direction, there is 50 squares.
+	    	for (var i = 0; i < v; i++) {
+	    		for(var j = 0; j < w; j++ ){
+	    			if (j == w - 1) {
+	    			   $("#scope").append('<span class="square" style="border-right: 0px solid gray;">&nbsp;</span>');
+	    			  continue; 
+	    			};
+	    			if (i == v - 1) {
+	    				$("#scope").append('<span class="square" style="border-bottom: 0px solid gray;">&nbsp;</span>');
+	    				continue;
+	    			};
+	    			$("#scope").append('<span class="square" style="">&nbsp;</span>');
+	    		}
+	    	}
+
+	    	//控制地图的生成
+	    	function init_map() {
+	    		var w = 30;//在水平方向，总共有50个方块
+	    		var v = 30;//in vertical direction, there is 50 squares.
+	    		for (var i = 0; i < v; i++) {
+	   		 		for(var j = 0; j < w; j++ ){
+	    				if (j == w - 1) {
+	    				   $("#scope").append('<span class="square" style="border-right: 0px solid gray;">&nbsp;</span>');
+	    			  	   continue; 
+	    				};
+	    				if (i == v - 1) {
+	    					$("#scope").append('<span class="square" style="border-bottom: 0px solid gray;">&nbsp;</span>');
+	    					continue;
+	    				};
+	    				$("#scope").append('<span class="square" style="">&nbsp;</span>');
+	    			}
+	    		}
+	    	}
+
+	    	function init() {
+	    		init_map();
+	    	}
+	    });
+	</script>
 </head>
-<body>
-	<h2>Snake game</h2>
+<body >
+	<h2 align="center">Snake game</h2>
+	<div class="scope" id="scope" align="center"></div>
+	<span class="square"></span>
 </body>
 </html>
