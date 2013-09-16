@@ -1,70 +1,96 @@
 <html>
-<head>
-	<title>Sname Game</title>
-	<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
-	<style type="text/css">
-	    .scope {
-	    	width: 599px;
-	    	height: 599px;
-	    	border: 1px solid blue;
-	    	margin: 0 auto;
-	    }
-	    .square {
-	    	/*display:block;*/
-	    	float: left;
-	    	/*clear: left*/;
-	    	border-bottom: 1px solid gray;
-	    	border-right: 1px solid gray;
-	    	width: 19px;
-	    	height: 19px;
-	    }
-	</style>
-	<script type="text/javascript">
-	    $(document).ready(function(){
-	    	var w = 30;//在水平方向，总共有50个方块
-	    	var v = 30;//in vertical direction, there is 50 squares.
-	    	for (var i = 0; i < v; i++) {
-	    		for(var j = 0; j < w; j++ ){
-	    			if (j == w - 1) {
-	    			   $("#scope").append('<span class="square" style="border-right: 0px solid gray;">&nbsp;</span>');
-	    			  continue; 
-	    			};
-	    			if (i == v - 1) {
-	    				$("#scope").append('<span class="square" style="border-bottom: 0px solid gray;">&nbsp;</span>');
-	    				continue;
-	    			};
-	    			$("#scope").append('<span class="square" style="">&nbsp;</span>');
-	    		}
-	    	}
+	<head>
+		<title>Sname Game</title>
+		<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+		<style type="text/css">
+		.scope {
+			width: 599px;
+			height: 599px;
+			border: 1px solid blue;
+			margin: 0 auto;
+		}
+		.square {
+			/*display:block;*/
+			float: left;
+			/*clear: left*/;
+			border-bottom: 1px solid gray;
+			border-right: 1px solid gray;
+			width: 19px;
+			height: 19px;
+		}
+		.food {
+			background-color: red;
+		}
+		.snake {
+			background-color: blue;
+		}
+		</style>
+		<script type="text/javascript">
+		$(document).ready(function() {
+		    init_map();
+		    show_snake();
+		    setInterval(food_time,5000);
+		    setInterval(move_snake, 200);
+		});
+		var list;
+		//控制地图的生成
+		function init_map() {
+		    var w = 30; //在水平方向，总共有50个方块
+		    var v = 30; //in vertical direction, there is 50 squares.
+		    for (var i = 0; i < v; i++) {
+		        for (var j = 0; j < w; j++) {
+		        	var t = i*30+j+1;
+		            if (j == w - 1) {
+		                $("#scope").append('<span class="square" style="border-right: 0px solid gray;" id="'+t+'">&nbsp;</span>');
+		                continue;
+		            };
+		            if (i == v - 1) {
+		                $("#scope").append('<span class="square" style="border-bottom: 0px solid gray;" id="'+t+'">&nbsp;</span>');
+		                continue;
+		            };
+		            $("#scope").append('<span class="square" style="" id="'+t+'">&nbsp;</span>');
+		        }
+		    }
+		    var foodAddress = Math.round(Math.random()*899+1);
+		    $("#"+foodAddress).addClass("food");
+		}
+		//控制食物出现的地方，和出现时间
+		function food_time() {
+			$("span.food").removeClass("food");
+			var foodAddress = Math.round(Math.random()*899+1);
+			if ($("#"+foodAddress).hasClass("snake")) {
+				var foodAddress = Math.round(Math.random()*899+1);
+			}
+			$("#"+foodAddress).addClass("food");
+		}
 
-	    	//控制地图的生成
-	    	function init_map() {
-	    		var w = 30;//在水平方向，总共有50个方块
-	    		var v = 30;//in vertical direction, there is 50 squares.
-	    		for (var i = 0; i < v; i++) {
-	   		 		for(var j = 0; j < w; j++ ){
-	    				if (j == w - 1) {
-	    				   $("#scope").append('<span class="square" style="border-right: 0px solid gray;">&nbsp;</span>');
-	    			  	   continue; 
-	    				};
-	    				if (i == v - 1) {
-	    					$("#scope").append('<span class="square" style="border-bottom: 0px solid gray;">&nbsp;</span>');
-	    					continue;
-	    				};
-	    				$("#scope").append('<span class="square" style="">&nbsp;</span>');
-	    			}
-	    		}
-	    	}
+		//控制蛇的初始化
+		function show_snake() {
+			list = new Array(1,31,61);
+			$.each(list, function(index,value) {
+				$("#"+value).addClass("snake");
+			});
+		}
 
-	    	function init() {
-	    		init_map();
-	    	}
-	    });
-	</script>
-</head>
-<body >
-	<h2 align="center">Snake game</h2>
-	<div class="scope" id="scope" align="center"></div>
-	<span class="square"></span>
-</body>
+		//控制蛇的移动
+		function move_snake() {
+			var start = list[0];
+			$.each(list,function(index,value) {
+				if ( index == list.length-1) {
+					list[index] = value + 30;
+					$("#"+list[index]).addClass("snake");
+				}else if(index == 0 ){
+					$("#"+value).removeClass("snake");
+					list[index] = list[index+1];
+				}else {
+					list[index] = list[index+1];
+				}
+			});
+		}
+		</script>
+	</head>
+	<body >
+		<h2 align="center">Snake game</h2>
+		<div class="scope" id="scope" align="center"></div>
+	</body>
 </html>
