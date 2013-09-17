@@ -44,6 +44,7 @@
 								list[index] = value + 30;
 								$("#"+list[index]).addClass("snake");
 								if ($("#"+list[index]).hasClass("food")) {
+									list.unshift(start);
 									$("#"+start).addClass("snake");
 								}
 							}else if(index == 0 ){
@@ -54,7 +55,7 @@
 							}
 						});
 					}
-					cancleInt = setInterval(move_snake, 500);
+					cancleInt = setInterval(move_snake, 200);
 				};
 
 				//press up key
@@ -67,6 +68,7 @@
 								list[index] = value-30;
 								$("#"+list[index]).addClass("snake");
 								if ($("#"+list[index]).hasClass("food")) {
+									list.unshift(start);
 									$("#"+start).addClass("snake");
 								}
 							}else if(index == 0 ){
@@ -77,7 +79,7 @@
 							}
 						});
 					}
-					cancleInt = setInterval(move_snake, 500);
+					cancleInt = setInterval(move_snake, 200);
 				};
 
 				//press left key
@@ -90,6 +92,7 @@
 								list[index] = value -1;
 								$("#"+list[index]).addClass("snake");
 								if ($("#"+list[index]).hasClass("food")) {
+									list.unshift(start);
 									$("#"+start).addClass("snake");
 								}
 							}else if(index == 0 ){
@@ -100,7 +103,7 @@
 							}
 						});
 					}
-					cancleInt = setInterval(move_snake, 500);
+					cancleInt = setInterval(move_snake, 200);
 				};
 
 				//press right key
@@ -113,6 +116,7 @@
 								list[index] = value + 1;
 								$("#"+list[index]).addClass("snake");
 								if ($("#"+list[index]).hasClass("food")) {
+									list.unshift(start);
 									$("#"+start).addClass("snake");
 								}
 							}else if(index == 0 ){
@@ -123,7 +127,7 @@
 							}
 						});
 					}
-					cancleInt = setInterval(move_snake, 500);
+					cancleInt = setInterval(move_snake, 200);
 				};
 			});
 		});
