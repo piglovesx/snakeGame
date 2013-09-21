@@ -27,16 +27,18 @@
 		</style>
 		<script type="text/javascript">
 		var cancleInt;
+		var previousWhich;
 		$(document).ready(function() {
 		    init_map();
 		    show_snake();
 		    setInterval(food_time,5000);
 		    //setInterval(move_snake, 200);
 		    $("body").keyup(function(event) {
-		    	window.clearInterval(cancleInt);
 		    	console.log(event.which);
+		    	console.log(previousWhich);
 				//press down key
-				if (event.which == 83) {
+				if (event.which == 83 && (previousWhich == 68 || previousWhich == 65 || previousWhich == undefined)) {
+					window.clearInterval(cancleInt);
 					move_snake = function(){
 						var start = list[0];
 						$.each(list,function(index,value) {
@@ -59,8 +61,8 @@
 				};
 
 				//press up key
-				if (event.which == 87) {
-					
+				if (event.which == 87 && (previousWhich == 68 || previousWhich == 65)) {
+					window.clearInterval(cancleInt);
 					move_snake = function(){
 						var start = list[0];
 						$.each(list,function(index,value) {
@@ -83,8 +85,8 @@
 				};
 
 				//press left key
-				if (event.which == 65) {
-					
+				if (event.which == 65 && (previousWhich == 83 || previousWhich == 87)) {
+					window.clearInterval(cancleInt);
 					move_snake = function(){
 						var start = list[0];
 						$.each(list,function(index,value) {
@@ -107,8 +109,8 @@
 				};
 
 				//press right key
-				if (event.which == 68) {
-					
+				if (event.which == 68 && (previousWhich == 83 || previousWhich == 87)) {
+					window.clearInterval(cancleInt);
 					move_snake = function(){
 						var start = list[0];
 						$.each(list,function(index,value) {
@@ -129,10 +131,11 @@
 					}
 					cancleInt = setInterval(move_snake, 200);
 				};
+				previousWhich = event.which;
 			});
 		});
 		var list;
-		var move 
+		var move;
 		//控制地图的生成
 		function init_map() {
 		    var w = 30; //在水平方向，总共有50个方块
@@ -171,44 +174,6 @@
 				$("#"+value).addClass("snake");
 			});
 		}
-
-		//控制蛇的移动
-		function move_snake() {
-			var start = list[0];
-			$.each(list,function(index,value) {
-				if ( index == list.length-1) {
-					$("body").keyup(function(event) {
-					//press down key
-					if (event.which == 83) {
-						list[index] = value + 30;
-					}
-					//press up key
-					if (event.which == 87) {
-						list[index] = value - 30;
-					}
-
-					//press left key
-					if (event.which == 65) {
-						list[index] = value - 1;
-					}
-
-					//press right key
-					if (event.which == 68) {
-						list[index] = value + 1;
-					};
-				});
-					//list[index] = value + 30;
-					$("#"+list[index]).addClass("snake");
-				}else if(index == 0 ){
-					$("#"+value).removeClass("snake");
-					list[index] = list[index+1];
-				}else {
-					list[index] = list[index+1];
-				}
-			});
-		}
-
-		
 		</script>
 	</head>
 	<body >
