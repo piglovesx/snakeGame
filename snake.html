@@ -1,5 +1,6 @@
 <html>
 	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>Sname Game</title>
 		<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 		<style type="text/css">
@@ -40,6 +41,10 @@
 		    $("body").keyup(function(event) {
 		    	console.log(event.which);
 		    	console.log(previousWhich);
+		    	//when press other keys,make the keyup skip the next program
+		    	if (event.which != 83 && event.which != 87 && event.which != 65 && event.which != 68) {
+		    		return false;
+		    	}
 				//press down key
 				if (event.which == 83 && (previousWhich == 68 || previousWhich == 65 || previousWhich == undefined)) {
 					window.clearInterval(cancleInt);
@@ -178,10 +183,31 @@
 				$("#"+value).addClass("snake");
 			});
 		}
+
+		var move_snake = function(){};
+
+		//开始蛇的运动
+		function startMove() {
+			cancleInt = setInterval(move_snake,200);
+		}
+
+		//暂停蛇的运动
+		function pause() {
+			window.clearInterval(cancleInt);
+		}
+
+		//重置蛇的运动
+		function reset() {
+		}
 		</script>
 	</head>
 	<body >
 		<h2 align="center">Snake game</h2>
 		<div class="scope" id="scope" align="center"></div>
+		<div class="buttons">
+			<input type="button" onclick="startMove()" value="开始">
+			<input type="button" onclick="pause()" value="暂停">
+			<input type="button" onclick="reset()" value="重置">
+		</div>
 	</body>
 </html>
